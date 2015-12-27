@@ -10,7 +10,7 @@ class CassandraTest extends FunSuite with BeforeAndAfterAll {
   override protected def beforeAll(): Unit = {
     session.execute("DROP KEYSPACE IF EXISTS test;")
     session.execute("CREATE KEYSPACE test WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 };")
-    session.execute("CREATE TABLE test.kv(key text PRIMARY KEY, value int);")
+    session.execute("CREATE TABLE test.kv(key text, value int, PRIMARY KEY (key));")
   }
 
   override protected def afterAll(): Unit = {
@@ -22,7 +22,7 @@ class CassandraTest extends FunSuite with BeforeAndAfterAll {
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k1', 1);")
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k2', 2);")
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k3', 3);")
-    val list = session.execute("select * from test.kv").all
-    assert(list.size() == 3)
+    assert(session.execute("select * from test.kv").all.size == 3)
+    assert(session.execute("select value from test.kv where key = 'k3'").all.size == 1)
   }
 }
