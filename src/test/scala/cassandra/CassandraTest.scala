@@ -18,11 +18,15 @@ class CassandraTest extends FunSuite with BeforeAndAfterAll {
     cluster.close()
   }
 
-  test("write -> read") {
+  test("write > read > update > delete") {
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k1', 1);")
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k2', 2);")
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k3', 3);")
     assert(session.execute("select * from test.kv").all.size == 3)
     assert(session.execute("select value from test.kv where key = 'k3'").all.size == 1)
+    assert(session.execute("update test.kv set value = 30 where key = 'k3'").all.size == 0)
+    assert(session.execute("select value from test.kv where key = 'k3'").all.get(0).getInt("value") == 30)
+    assert(session.execute("delete from test.kv where key = 'k3'").all.size == 0)
+    assert(session.execute("select value from test.kv where key = 'k3'").all.size == 0)
   }
 }
