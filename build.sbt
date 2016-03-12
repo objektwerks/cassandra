@@ -1,6 +1,6 @@
 name := "objektwerks.cassandra"
 version := "1.0"
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 libraryDependencies ++= {
   val cassandraVersion = "2.1.9"
