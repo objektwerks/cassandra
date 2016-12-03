@@ -1,27 +1,31 @@
-name := "objektwerks.cassandra"
+name := "cassandra"
+organization := "objektwerks"
 version := "1.0"
 scalaVersion := "2.11.8"
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 libraryDependencies ++= {
-  val cassandraVersion = "2.1.9"
+  val cassandraVersion = "3.1.2"
   Seq(
-    "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion,
-    "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion,
-    "ch.qos.logback" % "logback-classic" % "1.1.3",
-    "org.scalatest" % "scalatest_2.11" % "2.2.5" % "test"
+    "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion % "test",
+    "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion % "test",
+    "ch.qos.logback" % "logback-classic" % "1.1.7" % "test",
+    "org.scalatest" % "scalatest_2.11" % "3.0.1" % "test"
   )
 }
 scalacOptions ++= Seq(
   "-language:postfixOps",
-  "-language:implicitConversions",
   "-language:reflectiveCalls",
+  "-language:implicitConversions",
   "-language:higherKinds",
   "-feature",
+  "-Ywarn-unused-import",
+  "-Ywarn-unused",
+  "-Ywarn-dead-code",
   "-unchecked",
   "-deprecation",
-  "-Xlint",
-  "-Xfatal-warnings"
+  "-Xfatal-warnings",
+  "-Xlint:missing-interpolator",
+  "-Xlint"
 )
 fork in test := true
 javaOptions += "-server -Xss1m -Xmx2g"
-logLevel := Level.Info

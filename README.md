@@ -1,6 +1,6 @@
 Cassandra
 ---------
->Tests Cassandra features.
+>The purpose of this project is to test Cassandra features.
 
 Homebrew
 --------
