@@ -1,9 +1,9 @@
 package cassandra
 
 import com.datastax.driver.core.Cluster
-import org.scalatest.{BeforeAndAfterAll, FunSuite}
+import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
-class CassandraTest extends FunSuite with BeforeAndAfterAll {
+class CassandraTest extends FunSuite with BeforeAndAfterAll with Matchers {
   val cluster = Cluster.builder.addContactPoint("127.0.0.1").build()
   val session = cluster.connect()
 
@@ -22,11 +22,11 @@ class CassandraTest extends FunSuite with BeforeAndAfterAll {
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k1', 1);")
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k2', 2);")
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k3', 3);")
-    assert(session.execute("select * from test.kv").all.size == 3)
-    assert(session.execute("select value from test.kv where key = 'k3'").all.size == 1)
-    assert(session.execute("update test.kv set value = 30 where key = 'k3'").all.size == 0)
-    assert(session.execute("select value from test.kv where key = 'k3'").all.get(0).getInt("value") == 30)
-    assert(session.execute("delete from test.kv where key = 'k3'").all.size == 0)
-    assert(session.execute("select value from test.kv where key = 'k3'").all.size == 0)
+    session.execute("select * from test.kv").all.size shouldBe 3
+    session.execute("select value from test.kv where key = 'k3'").all.size shouldBe 1
+    session.execute("update test.kv set value = 30 where key = 'k3'").all.size shouldBe 0
+    session.execute("select value from test.kv where key = 'k3'").all.get(0).getInt("value") shouldBe 30
+    session.execute("delete from test.kv where key = 'k3'").all.size shouldBe 0
+    session.execute("select value from test.kv where key = 'k3'").all.size shouldBe 0
   }
 }
