@@ -4,12 +4,12 @@ version := "0.1-SNAPSHOT"
 scalaVersion := "2.12.2"
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 libraryDependencies ++= {
-  val cassandraVersion = "3.1.2"
+  val cassandraVersion = "3.2.0"
   Seq(
     "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion % "test",
     "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion % "test",
-    "ch.qos.logback" % "logback-classic" % "1.1.7" % "test",
-    "org.scalatest" % "scalatest_2.12" % "3.0.1" % "test"
+    "ch.qos.logback" % "logback-classic" % "1.2.3" % "test",
+    "org.scalatest" % "scalatest_2.12" % "3.0.3" % "test"
   )
 }
 scalacOptions ++= Seq(
