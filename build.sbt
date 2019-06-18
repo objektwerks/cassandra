@@ -1,30 +1,12 @@
 name := "cassandra"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 libraryDependencies ++= {
-  val cassandraVersion = "3.2.0"
   Seq(
-    "com.datastax.cassandra" % "cassandra-driver-core" % cassandraVersion % "test",
-    "com.datastax.cassandra" % "cassandra-driver-mapping" % cassandraVersion % "test",
+    "com.datastax.cassandra" % "cassandra-driver-core" % "4.0.0" % "test",
+    "com.datastax.cassandra" % "cassandra-driver-mapping" % "3.7.1" % "test",
     "ch.qos.logback" % "logback-classic" % "1.2.3" % "test",
-    "org.scalatest" % "scalatest_2.12" % "3.0.5" % "test"
+    "org.scalatest" %% "scalatest" % "3.0.5" % "test"
   )
 }
-scalacOptions ++= Seq(
-  "-language:postfixOps",
-  "-language:reflectiveCalls",
-  "-language:implicitConversions",
-  "-language:higherKinds",
-  "-feature",
-  "-Ywarn-unused-import",
-  "-Ywarn-unused",
-  "-Ywarn-dead-code",
-  "-unchecked",
-  "-deprecation",
-  "-Xfatal-warnings",
-  "-Xlint:missing-interpolator",
-  "-Xlint"
-)
-fork in test := true
-javaOptions += "-server -Xss1m -Xmx2g"
