@@ -1,11 +1,13 @@
 package cassandra
 
-import com.datastax.driver.core.Cluster
+import java.net.InetSocketAddress
+
+import com.datastax.oss.driver.api.core.CqlSession
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
 class CassandraTest extends FunSuite with BeforeAndAfterAll with Matchers {
-  val cluster = Cluster.builder.addContactPoint("127.0.0.1").build()
-  val session = cluster.connect()
+  val address = new InetSocketAddress("127.0.0.1", 9160)
+  val session = CqlSession.builder.addContactPoint(address).build()
 
   override protected def beforeAll(): Unit = {
     session.execute("DROP KEYSPACE IF EXISTS test;")
@@ -15,7 +17,6 @@ class CassandraTest extends FunSuite with BeforeAndAfterAll with Matchers {
 
   override protected def afterAll(): Unit = {
     session.close()
-    cluster.close()
   }
 
   test("write > read > update > delete") {
