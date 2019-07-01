@@ -6,13 +6,18 @@ import com.datastax.oss.driver.api.core.CqlSession
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
 class CassandraTest extends FunSuite with BeforeAndAfterAll with Matchers {
-  val address = new InetSocketAddress("127.0.0.1", 9160)
-  val session = CqlSession.builder.addContactPoint(address).build()
+  val address = new InetSocketAddress("127.0.0.1", 9042)
+  val session = CqlSession
+    .builder
+    .withLocalDatacenter("datacenter1")
+    .addContactPoint(address)
+    .build()
 
   override protected def beforeAll(): Unit = {
     session.execute("DROP KEYSPACE IF EXISTS test;")
     session.execute("CREATE KEYSPACE test WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 };")
     session.execute("CREATE TABLE test.kv(key text, value int, PRIMARY KEY (key));")
+    ()
   }
 
   override protected def afterAll(): Unit = {
