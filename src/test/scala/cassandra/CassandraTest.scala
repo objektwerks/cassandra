@@ -3,9 +3,12 @@ package cassandra
 import java.net.InetSocketAddress
 
 import com.datastax.oss.driver.api.core.CqlSession
-import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
-class CassandraTest extends FunSuite with BeforeAndAfterAll with Matchers {
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+
+class CassandraTest extends AnyFunSuite with BeforeAndAfterAll with Matchers {
   val address = new InetSocketAddress("127.0.0.1", 9042)
   val session = CqlSession
     .builder
@@ -20,10 +23,8 @@ class CassandraTest extends FunSuite with BeforeAndAfterAll with Matchers {
     ()
   }
 
-  override protected def afterAll(): Unit = {
-    session.close()
-  }
-
+  override protected def afterAll(): Unit = session.close()
+  
   test("write > read > update > delete") {
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k1', 1);")
     session.execute("INSERT INTO test.kv(key, value) VALUES ('k2', 2);")
