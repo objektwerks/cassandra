@@ -12,7 +12,6 @@ class CassandraTest extends AnyFunSuite with BeforeAndAfterAll with Matchers {
   val address = new InetSocketAddress("127.0.0.1", 9042)
   val session = CqlSession
     .builder
-    .withLocalDatacenter("datacenter1")
     .addContactPoint(address)
     .build()
 
