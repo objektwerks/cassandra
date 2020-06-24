@@ -10,9 +10,11 @@ import org.scalatest.matchers.should.Matchers
 class CassandraTest extends AnyFunSuite with Matchers {
   test("write > read > update > delete") {
     val address = new InetSocketAddress("127.0.0.1", 9042)
+    val datacenter = "datacenter1"
     val session = CqlSession
       .builder()
       .addContactPoint(address)
+      .withLocalDatacenter(datacenter)
       .build()
     
     session.execute("DROP KEYSPACE IF EXISTS test;")
