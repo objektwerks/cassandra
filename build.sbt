@@ -1,7 +1,7 @@
 name := "cassandra"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.13.9"
+scalaVersion := "2.13.10"
 libraryDependencies ++= {
   val cassandraDriverVersion = "4.14.1"
   Seq(
