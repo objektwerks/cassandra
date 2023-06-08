@@ -9,6 +9,6 @@ libraryDependencies ++= {
     "com.datastax.oss" % "java-driver-query-builder" % cassandraDriverVersion % Test,
     "com.datastax.oss" % "java-driver-mapper-runtime" % cassandraDriverVersion % Test,
     "ch.qos.logback" % "logback-classic" % "1.4.7" % Test,
-    "org.scalatest" %% "scalatest" % "3.2.15" % Test
+    "org.scalatest" %% "scalatest" % "3.2.16" % Test
   )
 }
