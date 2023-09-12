@@ -3,7 +3,7 @@ organization := "objektwerks"
 version := "0.1-SNAPSHOT"
 scalaVersion := "3.3.1"
 libraryDependencies ++= {
-  val cassandraDriverVersion = "4.15.0"
+  val cassandraDriverVersion = "4.17.0"
   Seq(
     "com.datastax.oss" % "java-driver-core" % cassandraDriverVersion % Test,
     "com.datastax.oss" % "java-driver-query-builder" % cassandraDriverVersion % Test,
