@@ -1,6 +1,6 @@
 Cassandra
 ---------
->The purpose of this project is to test Cassandra features.
+>The purpose of this project is to test Cassandra features using Scala 3.
 
 Homebrew
 --------
